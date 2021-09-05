@@ -14,7 +14,7 @@ taking input***/
 int yywrap(){}
 int main(int argc, char **argv)
 {
-// yyelex();
+// yylex();
 printf("Hello World!\n");
 
 return 0;
