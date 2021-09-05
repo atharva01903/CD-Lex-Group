@@ -9,7 +9,7 @@
 int yywrap(){}
 int main(int argc, char **argv)
 {
-// yyelex();
+// yylex();
 printf("Group Number 18\n");
 
 return 0;
