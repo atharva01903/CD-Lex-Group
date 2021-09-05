@@ -1,1 +1,3 @@
 /CD-Lex-Group
+lex.yy.c
+*.out
