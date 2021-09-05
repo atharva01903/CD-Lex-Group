@@ -1,0 +1,5 @@
+Flex is a tool/computer program for generating lexical analyzers (scanners or lexers) 
+
+    Written by Vern Paxson in C around 1987. Lex reads an input stream specifying the lexical analyzer 
+
+And outputs source code implementing the lexer in the C programming language. The function yylex() is the main flex function which runs the Rule Section.

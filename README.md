@@ -1,0 +1,1 @@
+Try to find how to recognize the first letter of a paragraph.
