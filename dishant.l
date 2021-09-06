@@ -26,6 +26,11 @@ int yywrap(){
 }*/
 
 int main(){
+    /*
+        [\ ]{2, } :- recognises all the whitespace
+        [^\ ] :- gives us the first letter
+    */
+
     extern FILE *yyin, *yyout;
     yyin = fopen("Input.txt", "r");
     yyout = fopen("Output.txt", "w");
