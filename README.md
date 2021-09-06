@@ -14,3 +14,5 @@ I have provided 3 sample LEX programming files and one reading source (given by 
 - $ lex filename.l
 - $ gcc lex.yy.c
 - $ ./a.out
+## Notes
+- As negative lookahead is not supported by flex compiler we are extracting date segment otherwise would have used the regex (?<=^[Dd]ate:).* 
