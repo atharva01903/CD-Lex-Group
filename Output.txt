@@ -1,9 +1,11 @@
-		*Flex is a tool/computer. program for generating lexical analyzers (scanners or lexers) 
+flex is a tool/computer. Program for generating lexical Sanalyzers (scanners or lexers) 
 
-		*Written by Vern Paxson in C around 1987. lex reads an input stream specifying the lexical analyzer.
+	#Written by Vern Paxson in C around 1987. Lex reads an input stream specifying the lexical analyzer.
 
-and outputs source code implementing the lexer in the C programming
+	*537aagrge75agr
 
-		*Language. The function yylex() is the main flex function which runs the Rule Section.
+	#And outputs source code. Implementing the lexer in the C programming
 
-		*What the fuck is this
+	*Language. The function yylex() is the main flex function which runs the Rule Section.
+
+	*What. The fuck is this
