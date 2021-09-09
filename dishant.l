@@ -9,6 +9,10 @@
     fprintf(yyout,"\t%c",toupper(yytext[yyleng-1]));
     /*So, we will get the last letter of the recognised string which is the first letter of paragraph*/
 }
+[\t]{2,}[^\ ] {
+    //yytext[1] = toupper(yytext[1]);
+    fprintf(yyout,"\t\t\t\t%c",toupper(yytext[yyleng-1]));
+}
 [\n][^\ ][a-zA-Z] {
     fprintf(yyout,"\n\n\t%c",toupper(yytext[yyleng-1]));
     // where tab is not present

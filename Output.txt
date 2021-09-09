@@ -1,4 +1,4 @@
-					Name of the Essay
+				Heading of the essay
 
 	Flex is a tool/computer. Program for generating lexical Sanalyzers (scanners or lexers)
 

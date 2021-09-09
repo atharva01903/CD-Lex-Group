@@ -10,6 +10,8 @@ The code will
     - '.' 
     - '?'
     - '!'
+    - and the first letter of the heading of the essay
+    
 - The code will insert a tab where
     - paragraph without a tab
     - paragraph with extra tabs
