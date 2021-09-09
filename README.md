@@ -16,3 +16,4 @@ I have provided 3 sample LEX programming files and one reading source (given by 
 - $ ./a.out
 ## Notes
 - As \b is unfortunately not supported by flex we are not using `\b([1-2][0-9]|[3][0-1]|(0)?[1-9])(st|nd|rd|th)\s(Jan|Feb|Mar|Apr|May|Jun(e)?|Jul(y)?|Aug|Sep(t)?|Oct|Nov|Dec)\b(\s(\d{2}\b|\d{4}\b))?` which exactly gives the date in the correct format
+- Apart from this, unsupported lookahead in flex is limiting us from creating C program less code.
