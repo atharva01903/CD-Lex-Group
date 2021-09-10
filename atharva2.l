@@ -35,23 +35,51 @@
 
 %%
 [\ ]{2,}[^\ ] {
-    fprintf(yyout,"\n\n\t%c",toupper(yytext[yyleng-1]));
+    yytext[yyleng-1] = toupper(yytext[yyleng-1]);
+    fprintf(yyout,"\t%c",toupper(yytext[yyleng-1]));
     /*So, we will get the last letter of the recognised string which is the first letter of paragraph*/
 }
-[\n][^\ ][a-zA-Z] {
-    fprintf(yyout,"\n\n\t%c",toupper(yytext[yyleng-1]));
+[\n][^\ ][a-z] {
+    int i;
+    printf("1.%sc\n",yytext);
+    for(i=yyleng-1; i>=0;i--){
+        if(yytext[i] == '\n'){
+            yytext[i] = '\t';
+            if(yytext[i-1] != '\n'){
+                fprintf(yyout,"\n\n");
+            }
+            break;
+        }
+        if(yytext[i] == '\t'){
+            if(yytext[i-1] == '\n'){
+                if(yytext[i-2]!='\n'){
+                    fprintf(yyout,"\n");
+                }
+            }
+            break;
+        }
+    }
+    yytext[i+1] = toupper(yytext[i+1]);
+    //printf("%c %c,",a,b);
+    fprintf(yyout,"%s",yytext);
+    // where tab is not present
+    //  will not substitute a single tab where extra tabs are given
 }
-[\.][\ ][a-zA-Z] {
+[\n]+[a-z]|[\n]+[A-Z] {
+    fprintf(yyout,"^%s",yytext);
+}
+
+[\.][\ ][a-z]|[\?][\ ][a-z]|[!][\ ][a-z]  {
     yytext[yyleng-1] = toupper(yytext[yyleng-1]);
     fprintf(yyout,"%s",yytext);
+    //the letter after the space after a Full stop, a question mark, an exclamation mark 
 }
-[0-9]+-[0-9]+(-[0-9]+)? {
+([1-2][0-9]|[3][0-1]|(0)?[1-9])-([0-9]|11|12)(-[0-9]+)? {
 	//printf("%s\n",yytext);
 	int i,j,k,n;
     char* str1 = (char*)malloc(sizeof(char)*2);
     char* str2 = (char*)malloc(sizeof(char)*2);
     char* str3 = (char*)malloc(sizeof(char)*5);
-    char* yyyy = (char*)malloc(sizeof(char)*4);
 	i=0;
 	n=strlen(yytext);
 	while(yytext[i]!='-') 
@@ -89,7 +117,6 @@
     char* str1 = (char*)malloc(sizeof(char)*2);
     char* str2 = (char*)malloc(sizeof(char)*4);
     char* str3 = (char*)malloc(sizeof(char)*5);
-    char* yyyy = (char*)malloc(sizeof(char)*4);
     i=0;
 	while(yytext[i]!='s' && yytext[i]!='n' && yytext[i]!='r' && yytext[i]!='t') 
 	{
@@ -128,6 +155,10 @@
     char* str3 = (char*)malloc(sizeof(char)*5);
     char* yyyy = (char*)malloc(sizeof(char)*4);
     i=0;
+    if(yytext[i]==' ')
+    {
+    	i++;
+    }
 	while(yytext[i]!=' ' && i!=4) 
 	{
 		str1[i]=yytext[i];
@@ -157,7 +188,10 @@
 		str3[3]='1';
 	}
 	printf("%s\n",yytext);
-	//fprintf(yyout,"%s %d, %s",months[getIndex(str1)],atoi(str2),sendYear(str3));
+	fprintf(yyout,"%s %d, %s",months[getIndex(str1)],atoi(str2),sendYear(str3));
+}
+\"[^"]+\" {
+	fprintf(yyout,"%s",yytext);
 }
 %%
 
