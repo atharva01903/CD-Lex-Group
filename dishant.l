@@ -6,17 +6,28 @@
 %}
 %%
 [\ ]{2,}[^\ ] {
-    fprintf(yyout,"\t%c",toupper(yytext[yyleng-1]));
+    yytext[yyleng-1] = toupper(yytext[yyleng-1]);
+    fprintf(yyout,"%c",toupper(yytext[yyleng-1]));
     /*So, we will get the last letter of the recognised string which is the first letter of paragraph*/
 }
-[\t]{2,}[^\ ] {
-    //yytext[1] = toupper(yytext[1]);
-    fprintf(yyout,"\t\t\t\t%c",toupper(yytext[yyleng-1]));
-}
-[\n][^\ ][a-zA-Z] {
-    fprintf(yyout,"\n\n\t%c",toupper(yytext[yyleng-1]));
+[\n][^\ ][a-z]* {
+    int i;
+    for(i=yyleng-1; i>=0;i--){
+        //printf("%c",yytext[i]);
+        if(yytext[i] == '\n'){
+            break;
+        }
+    }
+    yytext[i] = '\t';
+    yytext[i+1] = toupper(yytext[i+1]);
+    yytext[i+2] = yytext[i+2];
+    //printf("%c %c,",a,b);
+    fprintf(yyout,"\n*%s",yytext);
     // where tab is not present
     // will substitute a single tab where extra tabs are given
+}
+[\n\n\t]* {
+    fprintf(yyout,"%s",yytext);
 }
 [\.][\ ][a-z]|[\?][\ ][a-z]|[!][\ ][a-z]  {
     yytext[yyleng-1] = toupper(yytext[yyleng-1]);
@@ -103,7 +114,8 @@ int main(){
     */
 
     extern FILE *yyin, *yyout;
-    yyin = fopen("Input.txt", "r");
+    //yyin = fopen("Input.txt", "r");
+    yyin = fopen("inn.txt","r");
     yyout = fopen("Output.txt", "w");
     
     yylex();
