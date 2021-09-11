@@ -39,9 +39,9 @@
     fprintf(yyout,"\t%c",toupper(yytext[yyleng-1]));
     /*So, we will get the last letter of the recognised string which is the first letter of paragraph*/
 }
-[\n][^\ ][a-z] {
+[\n][^\ ][a-z]|[\n][^\ ][A-Z] {
     int i;
-    printf("1.%sc\n",yytext);
+    //printf("1.%sc\n",yytext);
     for(i=yyleng-1; i>=0;i--){
         if(yytext[i] == '\n'){
             yytext[i] = '\t';
@@ -74,7 +74,7 @@
     fprintf(yyout,"%s",yytext);
     //the letter after the space after a Full stop, a question mark, an exclamation mark 
 }
-([1-2][0-9]|[3][0-1]|(0)?[1-9])-([0-9]|11|12)(-[0-9]+)? {
+[0-9]+-[0-9]+(-[0-9]+)? {
 	//printf("%s\n",yytext);
 	int i,j,k,n;
     char* str1 = (char*)malloc(sizeof(char)*2);
@@ -153,7 +153,6 @@
     char* str2 = (char*)malloc(sizeof(char)*2);
     char* str1 = (char*)malloc(sizeof(char)*4);
     char* str3 = (char*)malloc(sizeof(char)*5);
-    char* yyyy = (char*)malloc(sizeof(char)*4);
     i=0;
     if(yytext[i]==' ')
     {
@@ -252,7 +251,7 @@ int main(){
         Only thing remaining is inserting a tab at the starting of the file if its not there.
     */
     extern FILE *yyin, *yyout;
-    yyin = fopen("input.txt", "r+");
+    yyin = fopen("inn.txt", "r+");
     yyout = fopen("output.txt", "w");
     yylex();
     fclose(yyin);
