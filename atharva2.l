@@ -38,10 +38,10 @@
     yytext[yyleng-1] = toupper(yytext[yyleng-1]);
     fprintf(yyout,"\t%c",toupper(yytext[yyleng-1]));
     /*So, we will get the last letter of the recognised string which is the first letter of paragraph*/
+    /*Credits: Dishant*/
 }
 [\n][^\ ][a-z]|[\n][^\ ][A-Z] {
     int i;
-    //printf("1.%sc\n",yytext);
     for(i=yyleng-1; i>=0;i--){
         if(yytext[i] == '\n'){
             yytext[i] = '\t';
@@ -60,22 +60,23 @@
         }
     }
     yytext[i+1] = toupper(yytext[i+1]);
-    //printf("%c %c,",a,b);
     fprintf(yyout,"%s",yytext);
-    // where tab is not present
-    //  will not substitute a single tab where extra tabs are given
+    // where tab is not present it will add an empty line followed by a tab
+    // where tab is already present it will just  add an empty line  
+    /*Credits: Dishant & Atharva*/
 }
 [\n]+[a-z]|[\n]+[A-Z] {
     fprintf(yyout,"^%s",yytext);
+    /*Credits: Dishant*/
 }
 
 [\.][\ ][a-z]|[\?][\ ][a-z]|[!][\ ][a-z]  {
     yytext[yyleng-1] = toupper(yytext[yyleng-1]);
     fprintf(yyout,"%s",yytext);
     //the letter after the space after a Full stop, a question mark, an exclamation mark 
+    /*Credits: Dishant*/
 }
 [0-9]+-[0-9]+(-[0-9]+)? {
-	//printf("%s\n",yytext);
 	int i,j,k,n;
     char* str1 = (char*)malloc(sizeof(char)*2);
     char* str2 = (char*)malloc(sizeof(char)*2);
@@ -109,8 +110,8 @@
 		str3[2]='2';
 		str3[3]='1';
 	}
-	//printf("%d-%s-%s | %s\n",atoi(str1),months[atoi(str2)-1],str3,sendYear(str3));
 	fprintf(yyout,"%s %d, %s",months[atoi(str2)-1],atoi(str1),sendYear(str3));
+	/*Credits: Atharva & Bhargav*/
 }
 ([1-2][0-9]|[3][0-1]|(0)?[1-9])(st|nd|rd|th)[ ](Jan|Feb|Mar|Apr|May|Jun(e)?|Jul(y)?|Aug|Sep(t)?|Oct|Nov|Dec)([ ]([0-9][0-9]|[0-9][0-9][0-9][0-9]))? {
 	int i,j,k;
@@ -145,8 +146,8 @@
 		str3[2]='2';
 		str3[3]='1';
 	}
-	//printf("%d-%s-%s\n",atoi(str1),months[getIndex(str2)],sendYear(str3));
 	fprintf(yyout,"%s %d, %s",months[getIndex(str2)],atoi(str1),sendYear(str3));
+	/*Credits: Atharva*/
 }
 (Jan|Feb|Mar|Apr|May|Jun(e)?|Jul(y)?|Aug|Sep(t)?|Oct|Nov|Dec)[ ]([1-2][0-9]|[3][0-1]|(0)?[1-9])(st|nd|rd|th)([ ]([0-9][0-9]|[0-9][0-9][0-9][0-9]))? {
 	int i,j,k; // rewrite the regex
@@ -188,9 +189,11 @@
 	}
 	printf("%s\n",yytext);
 	fprintf(yyout,"%s %d, %s",months[getIndex(str1)],atoi(str2),sendYear(str3));
+	/*Credits: Atharva*/
 }
 \"[^"]+\" {
 	fprintf(yyout,"%s",yytext);
+	/*Credits: Bhargav*/
 }
 %%
 
@@ -251,7 +254,7 @@ int main(){
         Only thing remaining is inserting a tab at the starting of the file if its not there.
     */
     extern FILE *yyin, *yyout;
-    yyin = fopen("inn.txt", "r+");
+    yyin = fopen("input.txt", "r+");
     yyout = fopen("output.txt", "w");
     yylex();
     fclose(yyin);
